@@ -1,10 +1,10 @@
 #!/bin/bash
 # Simple script to automate journal entry process
-# Rithesh R Jayaram 2018
+# Rithesh R Jayaram 2018 
 #---------------------------------------------------------------
 
 # // Function to get time frame from date/time
-GetTimeOfDay () {
+GetTimeOfDay () { 
 	tvar_hours=`date -d "$1" +"%H"`	# Get just the hours from 24h time
 	
 	# Chained if statements, hooh boy... I'm sure there's a better way, maybe
@@ -65,7 +65,7 @@ GetTimeSinceLastEntry () {
 		then
 			let "tvar_dateTimeDiff /= 3600"
 			return="$tvar_dateTimeDiff hour(s)"
-		elif [ $tvar_dateTimeDiff -gt 3600 ]		# Less than an hour since last entry
+		elif [ $tvar_dateTimeDiff -gt 0 ]		# Less than an hour since last entry
 		then
 			return="less than an hour"
 		else
@@ -96,7 +96,7 @@ var_sincelastentry=$return
 var_finalheader="${var_datetime}\n"	# date and time
 var_finalheader="${var_finalheader}// ${var_tod}, ${var_loc} //\n"
 var_finalheader="${var_finalheader}-  ${var_sincelastentry} since last entry  -\n"
-var_finalheader="${var_finalheader}\n===========================================================\n\n"
+var_finalheader="${var_finalheader}\n===========================================================\n"
 
 # // Format the title of the new file
 if [ "$tvar_lastfile" != "\n\n\n" ]	# If a previous entry was found, use that index +1
@@ -117,6 +117,13 @@ do
 	var_finalfilename="${var_newindex} - ${tvar_fndate} - ${var_tod}.txt"
 done
 
-touch "../${var_finalfilename}"
-echo -e "$var_finalheader" > "../${var_finalfilename}"
+touch "../${var_finalfilename}"		# Create file
+echo -e "$var_finalheader" > "../${var_finalfilename}"	# echo formatted header into file
 
+# // Create a temporary file and open vim on it
+tvar_tempfile=`mktemp --tmpdir=/tmp/`					# Make temp file
+vim "${tvar_tempfile}"									# Open file in vim
+cat "${tvar_tempfile}" >> "../${var_finalfilename}"		# Move contents into actual journal file
+rm "${tvar_tempfile}"									# Remove temporary file
+
+echo -e "Journal entry saved successfully in \"../${var_finalfilename}\""
