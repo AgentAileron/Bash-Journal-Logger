@@ -24,6 +24,8 @@ The logger formats files in the following way:
 Where `<Imprecise Location>` will be prompted for, and `<TEXT>` will be prompted via vim. 
 
 
+
+
 ## Placement
 
 The logger (`Entry_Logger.sh`) should be placed in a subdirectory to the directory that will hold entries. The `persist` file should be placed in the same subdirectory. Avoid using the directory for entries for anything else
