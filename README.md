@@ -3,10 +3,9 @@
 
 ----
 
-Bash isn't the greatest for a thing like this, but it's convenient and educational to make. 
-
 ***This is a personal logger I use for making entries about projects - use this creamy memey at your own peril***   
 
+----
 
 ## Formatting
 
@@ -25,8 +24,7 @@ The logger formats files in the following way:
 
 Where `<Imprecise Location>` will be prompted for, and `<TEXT>` will be prompted via vim. 
 
-
-
+----
 
 ## Placement
 
