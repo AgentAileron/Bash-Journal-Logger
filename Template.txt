@@ -1,0 +1,7 @@
+[<Date+Time Unix>]
+// <Time of Day>, <Fuzzy Location> //
+-  <x> days since last entry  -
+
+===========================================================
+
+<TEXT>
