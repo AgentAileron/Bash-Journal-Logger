@@ -107,5 +107,16 @@ else									# If no previous entry exists, use index 1
 	var_newindex=1
 fi
 
-tvar_fndate=`date -d "$var_datetime" +"%a %b %d %Y"`
-var_finalfilename="${var_newindex} - ${tvar_fndate} - ${var_tod}.txt"
+tvar_fndate=`date -d "$var_datetime" +"%a %b %d %Y"`	# Special date format for filename
+var_finalfilename="${var_newindex} - ${tvar_fndate} - ${var_tod}.txt"	# filename (may need to be changed)
+
+# // Create file and insert generated header
+while [ -f "../${var_finalfilename}" ]	# Just in case a collision occurs, increment again
+do
+	let "var_newindex++"
+	var_finalfilename="${var_newindex} - ${tvar_fndate} - ${var_tod}.txt"
+done
+
+touch "../${var_finalfilename}"
+echo -e "$var_finalheader" > "../${var_finalfilename}"
+
