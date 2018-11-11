@@ -1,4 +1,4 @@
-[<Date+Time Unix>]
+<Date+Time Unix>
 // <Time of Day>, <Fuzzy Location> //
 -  <x> days since last entry  -
 
