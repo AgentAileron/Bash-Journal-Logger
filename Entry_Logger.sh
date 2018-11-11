@@ -8,31 +8,31 @@ GetTimeOfDay () {
 	tvar_hours=`date -d "$1" +"%H"`	# Get just the hours from 24h time
 	
 	# Chained if statements, hooh boy... I'm sure there's a better way, maybe
-	if 	 [ $tvar_hours -gt 22 ]
+	if 	 [ $tvar_hours -ge 22 ]
 	then
 		return="Late Night"
-	elif [ $tvar_hours -gt 19 ]
+	elif [ $tvar_hours -ge 19 ]
 	then
 		return="Night"
-	elif [ $tvar_hours -gt 16 ]
+	elif [ $tvar_hours -ge 16 ]
 	then
 		return="Evening"
-	elif [ $tvar_hours -gt 13 ]
+	elif [ $tvar_hours -ge 13 ]
 	then
 		return="Afternoon"
-	elif [ $tvar_hours -gt 11 ]
+	elif [ $tvar_hours -ge 11 ]
 	then
 		return="Midday"
-	elif [ $tvar_hours -gt 8 ]
+	elif [ $tvar_hours -ge 8 ]
 	then
 		return="Morning"
-	elif [ $tvar_hours -gt 6 ]
+	elif [ $tvar_hours -ge 6 ]
 	then
 		return="Early Morning"
-	elif [ $tvar_hours -gt 3 ]
+	elif [ $tvar_hours -ge 3 ]
 	then
 		return="Very Early Morning"
-	elif [ $tvar_hours -gt 0 ]
+	elif [ $tvar_hours -ge 0 ]
 	then
 		return="Very Late Night"
 	else
@@ -83,12 +83,29 @@ GetTimeSinceLastEntry () {
 # // Get all info needed for headers / filenames
 var_datetime=`date`				# Get current date+time
 
-GetTimeOfDay "$var_dateTime"	# Get time of day
+GetTimeOfDay "$var_datetime"	# Get time of day
 var_tod=$return
 
 read -p "Current loc: " var_loc	# Get current location (fuzzy)
 
+tvar_lastfile="\n\n\n"	# Basically a null placeholder
 GetTimeSinceLastEntry "$var_datetime"	# Get time since last entry
 var_sincelastentry=$return
 
-# // Get all info needed for headers / filenames
+# // Format the internal header for the final Journal file
+var_finalheader="${var_datetime}\n"	# date and time
+var_finalheader="${var_finalheader}// ${var_tod}, ${var_loc} //\n"
+var_finalheader="${var_finalheader}-  ${var_sincelastentry} since last entry  -\n"
+var_finalheader="${var_finalheader}\n===========================================================\n\n"
+
+# // Format the title of the new file
+if [ "$tvar_lastfile" != "\n\n\n" ]	# If a previous entry was found, use that index +1
+then
+	var_newindex=${tvar_lastfile:3:1}
+	let "var_newindex++"
+else									# If no previous entry exists, use index 1
+	var_newindex=1
+fi
+
+tvar_fndate=`date -d "$var_datetime" +"%a %b %d %Y"`
+var_finalfilename="${var_newindex} - ${tvar_fndate} - ${var_tod}.txt"
