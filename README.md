@@ -28,7 +28,9 @@ Where `<Imprecise Location>` will be prompted for, and `<TEXT>` will be prompted
 
 ## Placement
 
-The logger (`Entry_Logger.sh`) should be placed in a subdirectory to the directory that will hold entries. The `persist` file should be placed in the same subdirectory. Avoid using the directory for entries for anything else
+The logger (`Entry_Logger.sh`) should be placed in a subdirectory to the directory that will hold entries. 
+
+Avoid using the journal entry directory for anything else
 
 **EG:**
 ```
@@ -36,7 +38,6 @@ The logger (`Entry_Logger.sh`) should be placed in a subdirectory to the directo
 |-- Project Logs
 |   |-- Entry Logger
 |       |-- Entry_Logger.sh
-|       |-- persist
 |
 |-- <Log files will be saved here>
 ```
