@@ -80,6 +80,7 @@ GetTimeSinceLastEntry () {
 
 #---------------------------------------------------------------
 
+# // Get all info needed for headers / filenames
 var_datetime=`date`				# Get current date+time
 
 GetTimeOfDay "$var_dateTime"	# Get time of day
@@ -90,3 +91,4 @@ read -p "Current loc: " var_loc	# Get current location (fuzzy)
 GetTimeSinceLastEntry "$var_datetime"	# Get time since last entry
 var_sincelastentry=$return
 
+# // Get all info needed for headers / filenames
