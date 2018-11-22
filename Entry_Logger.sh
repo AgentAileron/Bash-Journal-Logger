@@ -101,9 +101,8 @@ var_finalheader="${var_finalheader}\n===========================================
 # // Format the title of the new file
 if [ "$tvar_lastfile" != "\n\n\n" ]	# If a previous entry was found, use that index +1
 then
-	tvar_lastfile="${tvar_lastfile:3:${#tvar_lastfile}-1}"
-	echo "${tvar_lastfile}"	# temp
-	var_newindex=`echo "${tvar_lastfile}" | cut -f 1 -d " "`
+	tvar_lastfile="${tvar_lastfile:3:${#tvar_lastfile}-1}"		# Remove leading "../"
+	var_newindex=`echo "${tvar_lastfile}" | cut -f 1 -d " "`	# Get index of last entry, by first word in filename
 	let "var_newindex++"
 else									# If no previous entry exists, use index 1
 	var_newindex=1
